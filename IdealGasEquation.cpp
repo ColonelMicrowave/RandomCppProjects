@@ -56,19 +56,21 @@ void getUserValues(char solveFor)
 
 void rearrangeEquation()
 {
-	std::cout << "What do you want to solve for? (P, V, n, T) \n";
-	char solveFor{};
-	std::cin >> solveFor;
+	while (true)
+	{
+		std::cout << "What do you want to solve for? (P, V, n, T) \n";
+		char solveFor{};
+		std::cin >> solveFor;
 
-	if ((solveFor != 'P') && (solveFor != 'V') && (solveFor != 'n') && (solveFor != 'T'))
-	{
-		std::cout << "Invalid input. \n";
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		rearrangeEquation();
-	}
-	else
-	{
-		getUserValues(solveFor);
+		if ((solveFor != 'P') && (solveFor != 'V') && (solveFor != 'n') && (solveFor != 'T'))
+		{
+			std::cout << "Invalid input. \n";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		else
+		{
+			return getUserValues(solveFor);
+		}
 	}
 }
 
