@@ -30,61 +30,28 @@ void getUserValues(char solveFor)
 	double n{};
 	double T{};
 	double P{};
-	switch (solveFor)
+	if (solveFor != 'V')
 	{
-	case 'P':
-		std::cout << "What is the volume of the gas in metres cubed? \n";
+		std::cout << "Enter the volume of the gas in cubic metres: ";
 		std::cin >> V;
-
-		std::cout << "What is the number of moles of the gas? \n";
-		std::cin >> n;
-
-		std::cout << "What is the temperature of the gas in Kelvin? \n";
-		std::cin >> T;
-
-		calculateAndPrintValue(solveFor, V, n, T, P);
-
-		break;
-	case 'V':
-		std::cout << "What is the pressure of the gas in pascals? \n";
-		std::cin >> P;
-
-		std::cout << "What is the number of moles of the gas? \n";
-		std::cin >> n;
-
-		std::cout << "What is the temperature of the gas in Kelvin? \n";
-		std::cin >> T;
-
-		calculateAndPrintValue(solveFor, V, n, T, P);
-
-		break;
-	case 'n':
-		std::cout << "What is the pressure of the gas in pascals? \n";
-		std::cin >> P;
-
-		std::cout << "What is the volume of the gas in metres cubed? \n";
-		std::cin >> V;
-
-		std::cout << "What is the temperature of the gas in Kelvin? \n";
-		std::cin >> T;
-
-		calculateAndPrintValue(solveFor, V, n, T, P);
-
-		break;
-	case 'T':
-		std::cout << "What is the pressure of the gas in pascals? \n";
-		std::cin >> P;
-
-		std::cout << "What is the volume of the gas in metres cubed? \n";
-		std::cin >> V;
-
-		std::cout << "What is the number of moles of the gas? \n";
-		std::cin >> n;
-
-		calculateAndPrintValue(solveFor, V, n, T, P);
-
-		break;
 	}
+	if (solveFor != 'n')
+	{
+		std::cout << "Enter the number of moles of the gas: ";
+		std::cin >> n;
+	}
+	if (solveFor != 'T')
+	{
+		std::cout << "Enter the temperature of the gas in Kelvin: ";
+		std::cin >> T;
+	}
+	if (solveFor != 'P')
+	{
+		std::cout << "Enter the pressure of the gas in pascals: ";
+		std::cin >> P;
+	}
+
+	calculateAndPrintValue(solveFor, V, n, T, P);
 }
 
 void rearrangeEquation()
@@ -93,9 +60,10 @@ void rearrangeEquation()
 	char solveFor{};
 	std::cin >> solveFor;
 
-	if (solveFor != 'P' && solveFor != 'V' && solveFor != 'n' && solveFor != 'T')
+	if ((solveFor != 'P') && (solveFor != 'V') && (solveFor != 'n') && (solveFor != 'T'))
 	{
 		std::cout << "Invalid input. \n";
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		rearrangeEquation();
 	}
 	else
