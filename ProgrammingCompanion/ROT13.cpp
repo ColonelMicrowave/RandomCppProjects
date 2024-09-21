@@ -39,6 +39,23 @@ bool tryAgain()
 	}
 }
 
+std::string& rot13(std::string& sentence)
+{
+	for (char& c : sentence)
+	{
+		if (c >= 'a' && c <= 'z')
+		{
+			c = ('a' + ((c - 'a') + 13) % 26);
+		}
+		else if (c >= 'A' && c <= 'Z')
+		{
+			c = ('A' + ((c - 'A') + 13) % 26);
+		}
+	}
+
+	return sentence;
+}
+
 int main()
 {
 	while (true)
@@ -60,21 +77,7 @@ int main()
 			std::string sentence{ };
 			std::getline(std::cin >> std::ws, sentence);
 
-			for (char& c : sentence)
-			{
-				if (c >= 'a' && c <= 'z')
-				{
-					c = ('a' + ((c - 'a') + 13) % 26);
-				}
-				else if (c >= 'A' && c <= 'Z')
-				{
-					c = ('A' + ((c - 'A') + 13) % 26);
-				}
-			}
-
-			std::cout << "Encrypted sentence: " << sentence << '\n';
-			if (!tryAgain())
-				break;
+			std::cout << "Encrypted sentence: " << rot13(sentence) << '\n';
 		}
 		else if (choice == 'd' || choice == 'D')
 		{
@@ -83,22 +86,11 @@ int main()
 			std::string sentence{ };
 			std::getline(std::cin >> std::ws, sentence);
 
-			for (char& c : sentence)
-			{
-				if (c >= 'a' && c <= 'z')
-				{
-					c = ('a' + ((c - 'a') + 13) % 26);
-				}
-				else if (c >= 'A' && c <= 'Z')
-				{
-					c = ('A' + ((c - 'A') + 13) % 26);
-				}
-			}
-
-			std::cout << "Decrypted sentence: " << sentence << '\n';
-			if (!tryAgain())
-				break;
+			std::cout << "Decrypted sentence: " << rot13(sentence) << '\n';
 		}
+
+		if (!tryAgain())
+			break;
 	}
 
 	return 0;
