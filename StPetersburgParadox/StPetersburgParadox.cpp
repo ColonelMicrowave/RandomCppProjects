@@ -5,14 +5,14 @@
 
 unsigned long long stPetersburgParadox()
 {
-	int tosses{ 1 };
+	int tosses{ 0 };
 
 	while (Random::get(0, 1) == 0)
 	{
 		++tosses;
 	}
 
-	return (1ULL << (tosses - 1));
+	return (1ULL << (tosses));
 }
 
 int main()
