@@ -15,9 +15,9 @@
 namespace Tableau
 {
 	std::vector<std::vector<double>> tableau{
-		{  6, 8, 72 },
-		{  10, 20, 140 },
-		{ -8, -12, 0 }
+		{  6, 8, 1, 0, 72 },
+		{  10, 20, 0, 1, 140 },
+		{ -8, -12, 0, 0, 0 }
 	};
 }
 
