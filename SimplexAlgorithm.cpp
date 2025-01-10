@@ -8,49 +8,52 @@
 * 10x + 20y <= 140
 * 6x + 8y <= 72
 * x, y >= 0
+* 
+* Answer should be y = 3, x = 8, z = 100
 */
 
 namespace Tableau
 {
-	std::vector<std::vector<int>> tableau{
+	std::vector<std::vector<double>> tableau{
 		{  10, 20, 1, 0, 140 },
 		{  6,  8,  0, 1, 72  },
 		{ -8, -12, 0, 0, 0   }
 	};
 }
 
-constexpr int findPivotColumn(const std::vector<std::vector<int>>& tableau)
+int findPivotColumn(const std::vector<std::vector<double>>& tableau)
 {
 	int col{ -1 };
-	int minValue{ 0 };
+	double minValue{ 0 };
 
-	for (std::size_t c{ 0 }; c < 5; ++c)
+	for (std::size_t c{ 0 }; c < tableau[0].size(); ++c)
 	{
 		if (minValue > tableau[2][c])
 		{
 			minValue = tableau[2][c];
-			col = c;
+			col = static_cast<int>(c);
 		}
 	}
 	return col;
 }
 
-constexpr int findPivotRow(const std::vector<std::vector<int>>& tableau, const int pivotCol)
+int findPivotRow(const std::vector<std::vector<double>>& tableau, const int pivotCol)
 {
 	int row{ -1 };
-	int minRatio{ std::numeric_limits<int>::max() };
+	double minRatio{ std::numeric_limits<double>::infinity() };
 
 	for (std::size_t r{ 0 }; r < tableau.size() - 1; ++r)
 	{
-		int element = tableau[r][pivotCol];
+		double element = tableau[r][pivotCol];
 
 		if (element > 0)
 		{
-			int ratio{ tableau[r].back() / element };
+			double rhs{ tableau[r].back() };
+			double ratio{ rhs / element };
 			if (ratio < minRatio)
 			{
 				minRatio = ratio;
-				row = r;
+				row = static_cast<int>(r);
 			}
 		}
 	}
@@ -58,13 +61,53 @@ constexpr int findPivotRow(const std::vector<std::vector<int>>& tableau, const i
 	return row;
 }
 
+void rowCalculations(std::vector<std::vector<double>>& tableau, const int pivotCol, const int pivotRow)
+{
+	double pivotValue{ tableau[pivotRow][pivotCol] };
+
+	for (std::size_t c{ 0 }; c < tableau[0].size(); ++c)
+	{
+		tableau[pivotRow][c] = tableau[pivotRow][c] / pivotValue;
+	}
+
+	for (std::size_t r{ 0 }; r < tableau.size(); ++r)
+	{
+		if (static_cast<int>(r) != pivotRow)
+		{
+			double rowFactor{ tableau[r][pivotCol] };
+
+			for (std::size_t c{ 0 }; c < tableau[0].size(); ++c)
+			{
+				tableau[r][c] -= rowFactor * tableau[pivotRow][c];
+			}
+		}
+	}
+}
+
 int main()
 {
-	int col{ findPivotColumn(Tableau::tableau) };
-	int row{ findPivotRow(Tableau::tableau, col) };
+	while (true)
+	{
+		int col{ findPivotColumn(Tableau::tableau) };
 
-	std::cout << col + 1 << '\n';
-	std::cout << row + 1 << '\n';
+		if (col == -1)
+		{
+			break;
+		}
+
+		int row{ findPivotRow(Tableau::tableau, col) };
+
+		rowCalculations(Tableau::tableau, col, row);
+	}
+
+	for (const auto& r : Tableau::tableau)
+	{
+		for (const auto& c : r)
+		{
+			std::cout << c << "\t\t";
+		}
+		std::cout << '\n';
+	}
 
 	return 0;
 }
