@@ -2,22 +2,13 @@
 #include <limits>
 #include <vector>
 
-/*
-* Equation for testing:
-* 8x + 12y = z
-* 10x + 20y <= 140
-* 6x + 8y <= 72
-* x, y >= 0
-* 
-* Answer should be y = 3, x = 8, z = 100
-*/
-
 namespace Tableau
 {
+	// Modify this tableau to solve any maximisation problem
 	std::vector<std::vector<double>> tableau{
-		{  6, 8, 1, 0, 72 },
-		{  10, 20, 0, 1, 140 },
-		{ -8, -12, 0, 0, 0 }
+		{  2,  1,  3, 1, 0, 0, 18 },
+		{  1,  1,  1, 0, 1, 0, 12 },
+		{ -1, -2, -3, 0, 0, 1,  0 }
 	};
 }
 
