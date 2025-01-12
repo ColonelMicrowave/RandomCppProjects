@@ -2,17 +2,20 @@
 #include <limits>
 #include <vector>
 
+template<typename T>
+using Vector2D = std::vector<std::vector<T>>;
+
 namespace Tableau
 {
 	// Modify this tableau to solve any maximisation problem
-	std::vector<std::vector<double>> tableau{
+	Vector2D<double> tableau{
 		{  2,  1,  3, 1, 0, 0, 18 },
 		{  1,  1,  1, 0, 1, 0, 12 },
 		{ -1, -2, -3, 0, 0, 1,  0 }
 	};
 }
 
-int findPivotColumn(const std::vector<std::vector<double>>& tableau)
+int findPivotColumn(const Vector2D<double>& tableau)
 {
 	int col{ -1 };
 	double minValue{ 0 };
@@ -28,7 +31,7 @@ int findPivotColumn(const std::vector<std::vector<double>>& tableau)
 	return col;
 }
 
-int findPivotRow(const std::vector<std::vector<double>>& tableau, const int pivotCol)
+int findPivotRow(const Vector2D<double>& tableau, const int pivotCol)
 {
 	int row{ -1 };
 	double minRatio{ std::numeric_limits<double>::infinity() };
@@ -52,7 +55,7 @@ int findPivotRow(const std::vector<std::vector<double>>& tableau, const int pivo
 	return row;
 }
 
-void rowCalculations(std::vector<std::vector<double>>& tableau, const int pivotCol, const int pivotRow)
+void rowCalculations(Vector2D<double>& tableau, const int pivotCol, const int pivotRow)
 {
 	double pivotValue{ tableau[pivotRow][pivotCol] };
 
